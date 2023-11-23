@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom"
 
+
 export const Home = () =>{
 
     const navigate = useNavigate()
@@ -14,6 +15,7 @@ export const Home = () =>{
 
     return(
         <>
+        
         <h1>Hola soy Home</h1>
         <h2>Que quieres hacer??</h2>
         <button onClick={loginTo}>Registrarse</button>

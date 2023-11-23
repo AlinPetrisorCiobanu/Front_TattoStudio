@@ -10,6 +10,7 @@ import { Galery } from "../Galery/Galeria"
 import { Appoints } from "../CreateAppoints/Appoints"
 import { ModifyAppoints } from "../ModifyAppoints/ModifyAppoints"
 import { DeleteAppoints } from "../DeleteAppoints/DeleteAppoints"
+import { LogOut } from "../Login/Logout"
 
 
 export const Body = () =>{
@@ -19,12 +20,13 @@ export const Body = () =>{
         <Route path="/" element={<Home/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/logout" element={<LogOut/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/modify/user" element={<ModifyUser/>}/>
         <Route path="/delete/user" element={<DeleteUser/>}/>
         <Route path="/activation" element={<ActivationUser/>}/>
         <Route path="/galery" element={<Galery/>}/>
-        <Route path="/create/appoints" element={<Appoints/>}/>
+        <Route path="/appointment" element={<Appoints/>}/>
         <Route path="/modify/appoints" element={<ModifyAppoints/>}/>
         <Route path="/delete/appoints" element={<DeleteAppoints/>}/>
     </Routes>
