@@ -43,7 +43,9 @@ export const Register = () => {
   const navigate = useNavigate();
 
   const enviar = () => {
-    if(!name||!lastName||!idUser||!tlf||!birthday||!email||!password) return alert("faltan datos")
+    if(!name ||!lastName ||!idUser ||!tlf ||!birthday ||!email ||!password) console.log("faltan datos");
+    localStorage.setItem('emailReg' ,email)
+    localStorage.setItem('passReg' ,password)
     navigate("/login");
     dateBBD();
   };

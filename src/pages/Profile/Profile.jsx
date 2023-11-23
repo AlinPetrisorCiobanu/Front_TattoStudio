@@ -21,7 +21,12 @@ export const Profile = () => {
   return (
     <>
     <div>
-      <h1>Hola sr {profile.name}</h1>
+      <h1>Hola sr {profile.name} {profile.lastName}</h1>
+      <h3>con DNI:{profile.idUser}</h3>
+      <h3>Y nr:{profile.tlf}</h3>
+      <h3>nacido en : {profile.birthday}</h3>
+      <h3>email : {profile.email}</h3>
+      <h3>y su contraseña : {profile.password}</h3>
     </div>
       
     </>
