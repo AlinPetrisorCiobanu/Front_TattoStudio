@@ -16,7 +16,7 @@ export const login = async (data) => {
 //register de usuario
 export const register = async (data) => {
   try {
-    const res = await axios.post(`${URL_USER}`,data);
+    const res = await axios.post(`${URL_USER}`, data);
     return res.data;
   } catch (error) {
     return "algo ha fallado" + error;

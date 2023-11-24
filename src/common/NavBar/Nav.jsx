@@ -6,12 +6,16 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./Nav.css";
 
+
 export const Navigation = () => {
-    const name = localStorage.getItem('nombre')
+  
   const [token, setToken] = useState({});
+  const [name, setName] = useState("");
   const getToken = () => {
     const originalToken = localStorage.getItem("token");
+    const tokenName = localStorage.getItem('tokenName');
     setToken(originalToken);
+    setName(tokenName)
   };
   useEffect(() => {
     getToken();
@@ -30,8 +34,8 @@ export const Navigation = () => {
           <Nav className="me-auto"></Nav>
           {!token ? (
             <Nav>
-              <Nav.Link href="#features">Registrate</Nav.Link>
-              <Nav.Link href="#pricing">Iniciar Sesion</Nav.Link>
+              <Nav.Link href="/register">Registrate</Nav.Link>
+              <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
             </Nav>
           ) : (
             <Nav>

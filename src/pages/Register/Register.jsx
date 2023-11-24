@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { register } from "../../servicios/apiCalls";
 import { useNavigate } from "react-router-dom";
 
@@ -46,8 +46,8 @@ export const Register = () => {
     if(!name ||!lastName ||!idUser ||!tlf ||!birthday ||!email ||!password) console.log("faltan datos");
     localStorage.setItem('emailReg' ,email)
     localStorage.setItem('passReg' ,password)
-    navigate("/login");
     dateBBD();
+    navigate("/login")
   };
 
   return (

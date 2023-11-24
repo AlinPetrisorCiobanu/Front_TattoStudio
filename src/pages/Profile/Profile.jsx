@@ -1,5 +1,4 @@
 import { useState ,useEffect } from "react";
-// import { jwtDecode } from "jwt-decode";
 import { getProfile } from "../../servicios/apiCalls";
 
 export const Profile = () => {
@@ -11,7 +10,6 @@ export const Profile = () => {
        .then((res)=>{
             const profiles = res
             setProfile(profiles)
-            localStorage.setItem('nombre' , profile.name)
         })
         .catch((err)=>console.log(err))
     }

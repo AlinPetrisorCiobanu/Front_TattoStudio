@@ -3,7 +3,10 @@ import { useEffect} from "react";
 export const LogOut = () => {
     const navigate = useNavigate()
     const LogOut = () =>{
-        const originalToken = localStorage.setItem('token' , "")
+        localStorage.setItem('token' , "")
+        localStorage.setItem('emailReg' ,"")
+        localStorage.setItem('passReg' ,"")
+        localStorage.setItem('tokenName',"")
         navigate("/")
         }
     useEffect(()=>{
