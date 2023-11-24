@@ -9,28 +9,6 @@ import { userLogin } from "../userSlice";
 
 export const Login = () => {
 
-    const autoLogReg = () => {
-      const email = localStorage.getItem('emailReg')
-      const password = localStorage.getItem('passReg')
-      if(email&&password){
-      const datos = {email,password}
-      login(datos)
-      .then((res)=>{
-        const originalToken = res.token
-        localStorage.setItem('token' ,originalToken)
-        const decodedToken = jwtDecode(originalToken)
-        localStorage.setItem('tokenName' , decodedToken.name)
-        navigate("/")
-      })
-      .catch((err)=>console.log(err))
-      
-    }
-    }
-    useEffect(()=>{
-      autoLogReg()
-    },[])
-    
-
     const [loginDetails,setLoginDetails] = useState({
         email:"",
         password:""
@@ -45,8 +23,6 @@ export const Login = () => {
         
     }
 
-    
-
     const loginHand = (date) =>{
         login(date)
         .then((res)=>{
@@ -57,18 +33,8 @@ export const Login = () => {
         navigate("/")
     }
     
-    
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Input text="Email" type="email" name="email" handler={inputHandler} />
       <Input text="Pass" type="password" name="password" handler={inputHandler} />
       <button onClick={()=>loginHand(loginDetails)}>Enviar</button>

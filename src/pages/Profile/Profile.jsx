@@ -21,9 +21,6 @@ export const Profile = () => {
 
   return (
     <>
-    <br />
-    <br />
-    <br />
     <div>
       <h1>Hola sr {profile.name}</h1>
       <h1>{profile.lastName}</h1>

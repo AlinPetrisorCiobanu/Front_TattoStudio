@@ -10,8 +10,7 @@ import { Galery } from "../Galery/Galeria"
 import { Appoints } from "../Appointments/Appoints"
 import { ModifyAppoints } from "../Appointments/ModifyAppoints/ModifyAppoints"
 import { DeleteAppoints } from "../Appointments/DeleteAppoints/DeleteAppoints"
-
-
+import "./Body.css"
 
 export const Body = () =>{
     return(

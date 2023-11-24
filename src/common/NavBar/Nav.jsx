@@ -5,56 +5,59 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./Nav.css";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import { userDate, userLogout } from "../../pages/userSlice";
-import {useNavigate} from "react-router-dom"
-import {useDispatch} from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 
 export const Navigation = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  //con la ayuda de Redux traigo el token de la pagina de login
+  const token = useSelector(userDate).credentials;
   const [name, setName] = useState("user");
-  const originalToken = useSelector(userDate).credentials
 
-  const getToken = () => {
-     if(originalToken){
-    const decodedToken = (jwtDecode(String(originalToken)))
-    setName(decodedToken.name)
-   } 
+  //saco el nombre que tengo guardado en el token.
+  const getTokenName = () => {
+    if (token) {
+      const decodedToken = jwtDecode(String(token));
+      setName(decodedToken.name);
+    }
+  };
+  useEffect(() => {
+    getTokenName();
+  }, [token]);
+
+  //la función de logout
+  const LogOut = () => {
+    dispatch(userLogout({ credentials: "" }));
+    navigate("/");
   };
 
-  useEffect(() => {
-    getToken();
-  },[originalToken]);
-
-  const LogOut = () =>{
-    dispatch(userLogout({credentials : ""}))
-    navigate("/")
+  //he añadido la escucha de evento del scroll para que el navbar no se sobreponga al body.
+  window.addEventListener("scroll", () => {
+    let navbar = document.querySelector(".navBarBootsTrap");
+    if (window.scrollY > 10) {
+      navbar.style.position = "fixed";
+    } else {
+      navbar.style.position = "static";
     }
-
-window.addEventListener("scroll" , ()=>{
-  let navbar = document.querySelector('.navBarBootsTrap')
-  if(window.scrollY>10){
-    navbar.style.position = 'fixed';
-  }else{
-    navbar.style.position = 'static';
-  }
-})
+  });
 
   return (
     <Navbar
       collapseOnSelect
       expand="lg"
-      className="navBarBootsTrap , bg-body-tertiary"
+      className="navBarBootsTrap"
     >
-      <Container>
+      <Container className="propiedadesNav">
         <Navbar.Brand href="/home">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
-          {!originalToken ? (
+          {!token ? (
             <Nav>
               <Nav.Link href="/register">Registrate</Nav.Link>
               <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
@@ -72,7 +75,13 @@ window.addEventListener("scroll" , ()=>{
                   Sessiones
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={()=>{LogOut()}}>Log Out</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => {
+                    LogOut();
+                  }}
+                >
+                  Log Out
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           )}
@@ -81,11 +90,4 @@ window.addEventListener("scroll" , ()=>{
     </Navbar>
   );
 };
-/*
-const token = "ajshdj"
 
-{!token 
-?(no aparece register)
-:(aparece register <a href="/register">Register</a>)}
-
-*/

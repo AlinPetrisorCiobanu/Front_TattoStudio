@@ -1,6 +1,11 @@
-.navBarBootsTrap{
-    width: 100vw;
-    /* position: fixed; */
+.navBarBootsTrap{ 
     top: 0;
     padding: 10px 0;
+    background-color: rgb(39, 3, 39);
+}
+.propiedadesNav{
+    width: 90vw;
+}
+.container{
+    max-width: 3000px !important;
 }
