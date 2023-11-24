@@ -1,8 +1,11 @@
 import { Input } from "../../common/Input/Input";
 import { useState , useEffect} from "react";
 import { login } from "../../servicios/apiCalls";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import {useNavigate} from "react-router-dom"
+import {useDispatch} from "react-redux"
+import { userLogin } from "../userSlice";
+
 
 export const Login = () => {
 
@@ -32,7 +35,7 @@ export const Login = () => {
         email:"",
         password:""
     })
-
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const inputHandler = (e) =>{
         setLoginDetails((prevState)=>({
@@ -48,12 +51,10 @@ export const Login = () => {
         login(date)
         .then((res)=>{
           const originalToken = res.token
-          localStorage.setItem('token' ,originalToken)
-          const decodedToken = jwtDecode(originalToken)
-          localStorage.setItem('tokenName' , decodedToken.name)
-          navigate("/")
+          dispatch(userLogin({credentials : originalToken}))          
         })
         .catch((err)=>console.log(err))
+        navigate("/")
     }
     
     

@@ -1,5 +1,6 @@
 .navBarBootsTrap{
     width: 100vw;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
+    padding: 10px 0;
 }

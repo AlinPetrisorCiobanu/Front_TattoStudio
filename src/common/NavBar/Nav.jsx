@@ -5,21 +5,43 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./Nav.css";
-
+import {useSelector} from "react-redux"
+import { userDate, userLogout } from "../../pages/userSlice";
+import {useNavigate} from "react-router-dom"
+import {useDispatch} from "react-redux"
+import { jwtDecode } from "jwt-decode";
 
 export const Navigation = () => {
-  
-  const [token, setToken] = useState({});
-  const [name, setName] = useState("");
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [name, setName] = useState("user");
+  const originalToken = useSelector(userDate).credentials
+
   const getToken = () => {
-    const originalToken = localStorage.getItem("token");
-    const tokenName = localStorage.getItem('tokenName');
-    setToken(originalToken);
-    setName(tokenName)
+     if(originalToken){
+    const decodedToken = (jwtDecode(String(originalToken)))
+    setName(decodedToken.name)
+   } 
   };
+
   useEffect(() => {
     getToken();
-  }, []);
+  },[originalToken]);
+
+  const LogOut = () =>{
+    dispatch(userLogout({credentials : ""}))
+    navigate("/")
+    }
+
+window.addEventListener("scroll" , ()=>{
+  let navbar = document.querySelector('.navBarBootsTrap')
+  if(window.scrollY>10){
+    navbar.style.position = 'fixed';
+  }else{
+    navbar.style.position = 'static';
+  }
+})
 
   return (
     <Navbar
@@ -32,7 +54,7 @@ export const Navigation = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
-          {!token ? (
+          {!originalToken ? (
             <Nav>
               <Nav.Link href="/register">Registrate</Nav.Link>
               <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
@@ -50,7 +72,7 @@ export const Navigation = () => {
                   Sessiones
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>
+                <NavDropdown.Item onClick={()=>{LogOut()}}>Log Out</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           )}

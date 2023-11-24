@@ -1,11 +1,13 @@
 import { useState ,useEffect } from "react";
 import { getProfile } from "../../servicios/apiCalls";
+import {useSelector} from "react-redux"
+import { userDate } from "../userSlice";
 
 export const Profile = () => {
   const [profile,setProfile]=useState({})
 
     const profileBBD = () =>{
-        const originalToken = localStorage.getItem('token')
+        const originalToken = useSelector(userDate)
         getProfile(originalToken)
        .then((res)=>{
             const profiles = res
