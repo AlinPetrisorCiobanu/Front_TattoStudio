@@ -27,7 +27,7 @@ useEffect(() => {
       {!token ? (
         <h1 className="h1Home">Registrate o Inicia Sesion</h1>
       ) : (
-        <h1 className="h1Home">Bien Venid@ {name}</h1>
+        <h1 className="h1Home">BienVenid@ {name}</h1>
       )}
     </>
   );

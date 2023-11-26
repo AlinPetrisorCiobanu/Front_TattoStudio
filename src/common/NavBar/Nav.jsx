@@ -47,11 +47,7 @@ export const Navigation = () => {
   });
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      className="navBarBootsTrap"
-    >
+    <Navbar collapseOnSelect expand="lg" className="navBarBootsTrap">
       <Container className="propiedadesNav">
         <Navbar.Brand href="/home">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -69,11 +65,9 @@ export const Navigation = () => {
               <NavDropdown title={name} id="collapsible-nav-dropdown">
                 <NavDropdown.Item href="/profile">Mi Perfil</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/modify/user">Datos</NavDropdown.Item>
+                <NavDropdown.Item href="/appointment">Sessiones</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/appointment">
-                  Sessiones
-                </NavDropdown.Item>
+                <NavDropdown.Item href="/modify/user">Ayuda</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   onClick={() => {
@@ -90,4 +84,3 @@ export const Navigation = () => {
     </Navbar>
   );
 };
-

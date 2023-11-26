@@ -6,9 +6,9 @@ import { userDate } from "../userSlice";
 export const Profile = () => {
   const [profile,setProfile]=useState({})
 
-    const profileBBD = () =>{
-        const originalToken = useSelector(userDate)
-        getProfile(originalToken)
+  const originalToken = useSelector(userDate).credentials
+    const profileBBD = (date) =>{
+        getProfile(date)
        .then((res)=>{
             const profiles = res
             setProfile(profiles)
@@ -16,19 +16,18 @@ export const Profile = () => {
         .catch((err)=>console.log(err))
     }
     useEffect(()=>{
-        profileBBD()
-    },[])
+        profileBBD(originalToken)
+    },[originalToken])
 
   return (
     <>
     <div>
-      <h1>Hola sr {profile.name}</h1>
-      <h1>{profile.lastName}</h1>
+      <h1>Hola sr/a {profile.name}</h1>
+      <h1>apellido :{profile.lastName}</h1>
       <h3>con DNI:{profile.idUser}</h3>
       <h3>Y nr:{profile.tlf}</h3>
       <h3>nacido en : {profile.birthday}</h3>
       <h3>email : {profile.email}</h3>
-      <h3>y su contraseña : {profile.password}</h3>
     </div>
       
     </>
