@@ -49,14 +49,14 @@ export const Login = () => {
       <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Correo Electronico</Form.Label>
-        <Input text="Email" type="email" name="email" handler={inputHandler} />
+        <Input text="Email" type="email" name="email" handler={(e)=>inputHandler(e)} />
         <Form.Text className="text-muted">
           No enseñes tu email o contraseña a nadie!.
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Contraseña</Form.Label>
-        <Input text="Pass" type="password" name="password" handler={inputHandler} />
+        <Input text="Pass" type="password" name="password" handler={(e)=>inputHandler(e)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Accepto Politica de Privacidad" />
