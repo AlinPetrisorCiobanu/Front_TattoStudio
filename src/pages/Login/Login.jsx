@@ -4,8 +4,11 @@ import { login } from "../../servicios/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userDate, userLogin } from "../userSlice";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { Form } from "../../common/Form/Form";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -46,25 +49,32 @@ export const Login = () => {
 
   return (
     <>
-      <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Correo Electronico</Form.Label>
-        <Input text="Email" type="email" name="email" handler={(e)=>inputHandler(e)} />
-        <Form.Text className="text-muted">
-          No enseñes tu email o contraseña a nadie!.
-        </Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Contraseña</Form.Label>
-        <Input text="Pass" type="password" name="password" handler={(e)=>inputHandler(e)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Accepto Politica de Privacidad" />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={() => loginHand(loginDetails)}>
-        Submit
-      </Button>
-    </Form>
+        <Container fluid>
+        <Container className="containerFormRegister text-center">
+          <Row className="anchoRowFormRegister">
+            <Form
+              type="text"
+              name="email"
+              nameLabel="email"
+              nrCol="6"
+              handlerInput={inputHandler}
+            />
+            <Form
+              type="text"
+              name="password"
+              nameLabel="contraseña"
+              nrCol="6"
+              handlerInput={inputHandler}
+            />
+            <Col>
+            <Button className="buttonFormReg" onClick={() => loginHand(loginDetails)}>
+              Iniciar Session
+            </Button>
+            </Col>
+            
+          </Row>
+        </Container>
+      </Container>
     </>
   );
 };

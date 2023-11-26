@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { userDate } from "../userSlice";
 import { useDispatch } from "react-redux";
-import { FormReg } from "../../common/Form/Form";
-// import Button from "react-bootstrap/Button";
-// import { Form } from "../../common/Form/Form";
+import { Form } from "../../common/Form/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { login, register } from "../../servicios/apiCalls";
 import { userLogin } from "../../pages/userSlice";
+import Button from "react-bootstrap/Button";
 import "./Register.css";
+// import { Input } from "../../common/Input/Input";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -74,12 +74,12 @@ export const Register = () => {
     dateBBD();
     navigate("/");
   };
-  
+
   const inputDate = (e) => {
+    console.log(e.target.value);
     setRegisterDetails((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-      
     }));
   };
 
@@ -88,9 +88,71 @@ export const Register = () => {
       <Container fluid>
         <Container className="containerFormRegister text-center">
           <Row className="anchoRowFormRegister">
-            <Col className="anchoMaxColFormReg">
-              <FormReg miaumiau={inputDate} handlerClick={send}/>
+            <Form
+              type="text"
+              name="name"
+              txt="Bart"
+              nameLabel="Nombre"
+              nrCol="6"
+              handlerInput={inputDate}
+            />
+            <Form
+              type="text"
+              name="lastName"
+              txt="Simpson"
+              nameLabel="Appelidos"
+              nrCol="6"
+              handlerInput={inputDate}
+            />
+            <Form
+              type="text"
+              name="idUser"
+              txt="00000000X"
+              nameLabel="DNI"
+              nrCol="6"
+              handlerInput={inputDate}
+            />
+            <Form
+              type="text"
+              name="tlf"
+              txt="000000000"
+              nameLabel="nr. Telefono"
+              nrCol="6"
+              handlerInput={inputDate}
+            />
+            <Row className="justify-content-center">
+              <Form
+                type="text"
+                name="years"
+                txt="2000"
+                nameLabel="Tu fecha de nacimiento (solo el año)"
+                nrCol="6"
+                handlerInput={inputDate}
+              />
+            </Row>
+
+            <Form
+              type="text"
+              name="email"
+              txt="ejemplo@ejemplo.com"
+              nameLabel="Correo Electronico"
+              nrCol="6"
+              handlerInput={inputDate}
+            />
+            <Form
+              type="text"
+              name="password"
+              txt="Contraseña"
+              nameLabel="Contraseña"
+              nrCol="6"
+              handlerInput={inputDate}
+            />
+            <Col>
+            <Button className="buttonFormReg" onClick={(e) => send(e)}>
+              Register
+            </Button>
             </Col>
+            
           </Row>
         </Container>
       </Container>
