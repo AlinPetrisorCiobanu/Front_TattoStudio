@@ -1,0 +1,16 @@
+.Card {
+  width: 50vw;
+  height: 60vh;
+  background-color: rgba(2, 2, 57, 0.348);
+  border: 5px solid rgb(0, 0, 0);
+  color: bisque;
+  border-radius: 20px;
+  box-shadow: 15px 15px 8px rgba(0, 0, 255, 0.227);
+}
+.hrCardProfile {
+  width: 60%;
+  height: 0.2vh;
+  margin-left: 20%;
+  color: black;
+  background-color: black;
+}

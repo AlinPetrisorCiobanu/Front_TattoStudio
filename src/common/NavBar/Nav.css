@@ -1,10 +1,30 @@
 .navBarBootsTrap{ 
-    top: 0;
-    padding: 10px 0;
-    background-color: rgb(39, 3, 39);
+    /* top: 0; */
+    /* padding: 5px 0; */
+    background-color: #1e1e1e !important;
+    width: 100%;
 }
 .propiedadesNav{
     width: 90vw;
+}
+.navbar-toggler{
+    background-color: #e1a500;
+}
+.nav-link{
+    color: #e1a500 ;
+    padding: 0px;
+    text-align: center;
+}
+.dropdown-menu{
+    background-color: #1e1e1e;
+}
+.configTextNav{
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.5em;
+    color: #e1a500 ;
+    padding: 10px;
+    /* margin-left: 35px; */
+    text-align: center;
 }
 .container{
     max-width: 3000px !important;

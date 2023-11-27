@@ -4,16 +4,17 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import "./Nav.css";
 import { useSelector } from "react-redux";
 import { userDate, userLogout } from "../../pages/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
+import "./Nav.css";
 
 export const Navigation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // dispatch(userLogout({ credentials: "" }));
 
   //con la ayuda de Redux traigo el token de la pagina de login
   const token = useSelector(userDate).credentials;
@@ -26,9 +27,11 @@ export const Navigation = () => {
       setName(decodedToken.name);
     }
   };
-  useEffect(() => {
-    getTokenName();
-  }, [token]);
+  
+    useEffect(() => {
+      getTokenName();
+    }, [token]);
+  
 
   //la función de logout
   const LogOut = () => {
@@ -43,33 +46,40 @@ export const Navigation = () => {
       navbar.style.position = "fixed";
     } else {
       navbar.style.position = "static";
+      navbar.style.width = "100vw";
     }
   });
 
   return (
     <Navbar collapseOnSelect expand="lg" className="navBarBootsTrap">
       <Container className="propiedadesNav">
-        <Navbar.Brand href="/home">Home</Navbar.Brand>
+        <Navbar.Brand className="configTextNav" href="/home">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
           {!token ? (
             <Nav>
-              <Nav.Link href="/register">Registrate</Nav.Link>
-              <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
+              <Nav.Link className="configTextNav" href="/register">Registrate</Nav.Link>
+              <Nav.Link className="configTextNav" href="/login">Iniciar Sesion</Nav.Link>
+              <Nav.Link className="configTextNav" href="/">Contacto</Nav.Link>
             </Nav>
           ) : (
             <Nav>
-              <Nav.Link href="#features">Tatuadores</Nav.Link>
-              <Nav.Link href="#pricing">Galeria</Nav.Link>
-              <NavDropdown title={name} id="collapsible-nav-dropdown">
-                <NavDropdown.Item href="/profile">Mi Perfil</NavDropdown.Item>
+              <Nav.Link className="configTextNav" href="#features">Tatuadores</Nav.Link>
+              <Nav.Link className="configTextNav" href="#pricing">Galeria</Nav.Link>
+              <NavDropdown className="configTextNav" title={name} id="collapsible-nav-dropdown">
+                <NavDropdown.Item className="configTextNav" href="/profile">Mi Perfil</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/appointment">Sessiones</NavDropdown.Item>
+                <NavDropdown.Item className="configTextNav" href="/appointment">
+                  Sessiones
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/modify/user">Ayuda</NavDropdown.Item>
+                <NavDropdown.Item className="configTextNav" href="/modify/user">
+                  Contacto
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item
+                <NavDropdown.Item 
+                  className="configTextNav"
                   onClick={() => {
                     LogOut();
                   }}
