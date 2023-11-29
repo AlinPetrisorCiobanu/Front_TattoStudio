@@ -1,7 +1,32 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { userDate } from "../../pages/userSlice";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
-export const MyVerticallyCenteredModal = (props) => {
+export const MyVerticallyCenteredModal = ({
+  show,
+  onHide,
+  user,
+  reference,
+}) => {
+  const props = { show, onHide };
+
+  const [rol, setRol] = useState("");
+  const token = useSelector(userDate).credentials;
+
+  const getTokenName = () => {
+    if (token) {
+      const decodedToken = jwtDecode(String(token));
+      setRol(decodedToken.rol);
+    }
+  };
+
+  useEffect(() => {
+    getTokenName();
+  }, [token]);
+
   return (
     <Modal
       {...props}
@@ -11,37 +36,59 @@ export const MyVerticallyCenteredModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter text-center">
-          Hola
+          {reference === "modify" ? "Modificar!" : "Borrar!!!"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4 className='text-center'>Bueno</h4>
-        <p>
-          este es un modal echo con bootstrap
-        </p>
+        {reference === "modify" ? (
+          <div>
+            {rol === "admin" ? (
+              <div>
+                <h4 className="text-center">
+                  {user.name} {user.lastName}
+                </h4>
+                <h6>{user.name}</h6>
+                <h6>{user.lastName}</h6>
+                <h6>{user.idUser}</h6>
+                <h6>{user.birthday}</h6>
+                <h6>{user.tlf}</h6>
+                <h6>{user.email}</h6>
+                <h6>{user.password}</h6>
+                <h6>{user.rol}</h6>
+                <h6>{user.borradoLogico === true ? "SI" : "NO"}</h6>
+              </div>
+            ) : (
+              <div>
+                <h4 className="text-center">
+                  {user.name} {user.lastName}
+                </h4>
+                <h6>Nombre:</h6>
+                <h6>Apellidos :</h6>
+                <h6>Contraseña :</h6>
+                <h5 className="text-center">
+                  Para modificar el resto de datos pongase en contacto con
+                  nosotros{" "}
+                </h5>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            {rol === "admin" ? (
+              <div>
+                <h6>Seguro que quieres borrar su cuenta</h6>
+              </div>
+            ) : (
+              <div>
+                <h6>Seguro que quieres borrar tu cuenta</h6>
+              </div>
+            )}
+          </div>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
   );
-}
-
-// function App() {
-//   const [modalShow, setModalShow] =useState(false);
-
-//   return (
-    // <>
-    //   <Button variant="primary" onClick={() => setModalShow(true)}>
-    //     Launch vertically centered modal
-    //   </Button>
-
-    //   <MyVerticallyCenteredModal
-    //     show={modalShow}
-    //     onHide={() => setModalShow(false)}
-    //   />
-    // </>
-//   );
-// }
-
-// render(<App />);
+};

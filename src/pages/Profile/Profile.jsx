@@ -32,17 +32,32 @@ export const Profile = () => {
   }, [originalToken]);
 
   const [modalShow, setModalShow] = useState(false);
+  const [userToModifyDelete, setUserToModifyDelete] = useState({});
+  const [referenceModifyOrDelete, setReferenceModifyOrDelete] = useState({});
 
-  const modifyUser = () => {
+  const modifyUser = (user) => {
+    if(user._id!==""){
+      const reference = "modify"
+      setUserToModifyDelete(user)
+      setReferenceModifyOrDelete(reference)
     setModalShow(true)
+    }
+    
   };
-  const deleteUser = () => {
-    console.log("borr");
+  const deleteUser = (user) => {
+    if(user._id!==""){
+      const reference = "delete"
+      setUserToModifyDelete(user)
+      setReferenceModifyOrDelete(reference)
+      setModalShow(true)
+    }
   };
   return (
     <>
     <MyVerticallyCenteredModal 
       show={modalShow}
+      user={userToModifyDelete}
+      reference={referenceModifyOrDelete}
       onHide={()=>setModalShow(false)}
     />
       <Container fluid className="">
@@ -52,14 +67,8 @@ export const Profile = () => {
               <Col>
                 <Card
                   key={profile._id}
-                  id={profile._id}
-                  name={profile.name}
-                  last_Name={profile.lastName}
-                  idUser={profile.idUser}
-                  tlf={profile.tlf}
-                  email={profile.email}
-                  years={profile.birthday}
-                  rol={profile.rol}
+                  user={profile}
+                  
                   handlerClickMod={modifyUser}
                   handlerClickDel={deleteUser}
                 />
@@ -72,14 +81,7 @@ export const Profile = () => {
                   <Col>
                     <Card
                       key={users.idUser}
-                      id={users._id}
-                      name={users.name}
-                      last_Name={users.lastName}
-                      idUser={users.idUser}
-                      tlf={users.tlf}
-                      email={users.email}
-                      years={users.birthday}
-                      rol={users.rol}
+                      user={users}
                       handlerClickMod={modifyUser}
                       handlerClickDel={deleteUser}
                     />
