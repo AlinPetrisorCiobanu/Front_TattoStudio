@@ -11,6 +11,7 @@ import { login, register } from "../../servicios/apiCalls";
 import { userLogin } from "../../pages/userSlice";
 import Button from "react-bootstrap/Button";
 import "./Register.css";
+import { validate } from "../../servicios/useFul";
 // import { Input } from "../../common/Input/Input";
 
 export const Register = () => {
@@ -38,6 +39,16 @@ export const Register = () => {
     navigate("/");
   };
 
+  const [userError, setUserError] = useState({
+    nameError: "",
+    lastNameError: "",
+    idUserError: "",
+    tlfError: "",
+    yearsError: "",
+    emailError: "",
+    passwordError: "",
+  });
+
   const [registerDetails, setRegisterDetails] = useState({
     name: "",
     lastName: "",
@@ -47,6 +58,17 @@ export const Register = () => {
     email: "",
     password: "",
   });
+
+  const checkError = (e) => {
+    let error = "";
+
+    error = validate(e.target.name, e.target.value);
+
+    setUserError((prevState) => ({
+      ...prevState,
+      [e.target.name + "Error"]: error,
+    }))
+  }
 
   const dateBBD = async () => {
     try {
@@ -91,68 +113,81 @@ export const Register = () => {
             <Form
               type="text"
               name="name"
-              txt="Bart"
+              txt={`bg-color-Form-Reg ${userError.nameError !== '' ? 'inputDesignError' : ''}`}
               nameLabel="Nombre"
               nrCol="6"
               handlerInput={inputDate}
+              functionError={checkError}
             />
             <Form
               type="text"
               name="lastName"
-              txt="Simpson"
+              txt={`bg-color-Form-Reg ${userError.lastNameError !== '' ? 'inputDesignError' : ''}`}
               nameLabel="Appelidos"
               nrCol="6"
               handlerInput={inputDate}
+              functionError={checkError}
             />
             <Form
               type="text"
               name="idUser"
-              txt="00000000X"
+              txt={`bg-color-Form-Reg ${userError.idUserError !== '' ? 'inputDesignError' : ''}`}
               nameLabel="DNI"
               nrCol="6"
               handlerInput={inputDate}
+              functionError={checkError}
             />
             <Form
               type="text"
               name="tlf"
-              txt="000000000"
+              txt={`bg-color-Form-Reg ${userError.tlfError !== '' ? 'inputDesignError' : ''}`}
               nameLabel="nr. Telefono"
               nrCol="6"
               handlerInput={inputDate}
+              functionError={checkError}
             />
             <Row className="justify-content-center">
               <Form
                 type="text"
                 name="years"
-                txt="2000"
+                txt={`bg-color-Form-Reg ${userError.yearsError !== '' ? 'inputDesignError' : ''}`}
                 nameLabel="Tu fecha de nacimiento (solo el año)"
                 nrCol="6"
                 handlerInput={inputDate}
+                functionError={checkError}
               />
             </Row>
 
             <Form
               type="text"
               name="email"
-              txt="ejemplo@ejemplo.com"
+              txt={`bg-color-Form-Reg ${userError.emailError !== '' ? 'inputDesignError' : ''}`}
               nameLabel="Correo Electronico"
               nrCol="6"
               handlerInput={inputDate}
+              functionError={checkError}
             />
             <Form
               type="text"
               name="password"
-              txt="Contraseña"
+              txt={`bg-color-Form-Reg ${userError.passwordError !== '' ? 'inputDesignError' : ''}`}
               nameLabel="Contraseña"
               nrCol="6"
               handlerInput={inputDate}
+              functionError={checkError}
             />
+            <div className="errorRedMsg">{userError.nameError}</div>
+            <div className="errorRedMsg">{userError.lastNameError}</div>
+            <div className="errorRedMsg">{userError.idUserError}</div>
+            <div className="errorRedMsg">{userError.tlfError}</div>
+            <div className="errorRedMsg">{userError.yearsError}</div>
+            <div className="errorRedMsg">{userError.passwordError}</div>
+            <div className="errorRedMsg">{userError.emailError}</div>
             <Col>
-            <Button className="buttonFormReg" onClick={(e) => send(e)}>
-              Register
-            </Button>
+              <Button className="buttonFormReg" onClick={(e) => send(e)}>
+                Register
+              </Button>
             </Col>
-            
           </Row>
         </Container>
       </Container>

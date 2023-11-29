@@ -1,7 +1,7 @@
 import Col from "react-bootstrap/Col";
 import { Input } from "../Input/Input";
 
-export const Form = ({ type, name, txt, nameLabel, nrCol, handlerInput }) => {
+export const Form = ({ type, name, txt, nameLabel, nrCol, handlerInput , functionError}) => {
   return (
     <>
         <Col className="display-flex" md={nrCol}>
@@ -11,6 +11,7 @@ export const Form = ({ type, name, txt, nameLabel, nrCol, handlerInput }) => {
             name={name}
             txt={txt}
             handler={(e) => handlerInput(e)}
+            handlerError={(e) => functionError(e)}
           />
         </Col>
     </>

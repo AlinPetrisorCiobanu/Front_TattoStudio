@@ -2,17 +2,19 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 
-export const Input = ({ txt, name, type, pat, handler }) => {
+export const Input = ({ txt, name, type, pat, handler ,handlerError }) => {
   return (
     <>
       <InputGroup className="mb-3 ">
         <Form.Control
           type={type}
-          placeholder={txt}
+          placeholder={""}
           name={name}
           pattern={pat}
           onChange={handler}
-          className="bg-color-Form-Reg"
+          onBlur={handlerError}
+          className={txt}
+          maxLength={50}
         />
       </InputGroup>
     </>

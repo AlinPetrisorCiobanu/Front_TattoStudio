@@ -30,6 +30,8 @@ export const Profile = () => {
     profileBBD(originalToken);
   }, [originalToken]);
 
+  const [modalShow, setModalShow] = useState(false);
+
   const modifyUser = () => {
     console.log("mod");
   };

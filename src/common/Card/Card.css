@@ -1,6 +1,6 @@
 .Card {
   width: 50vw;
-  height: 60vh;
+  height: auto;
   background-color: rgba(2, 2, 57, 0.348);
   border: 5px solid rgb(0, 0, 0);
   color: bisque;

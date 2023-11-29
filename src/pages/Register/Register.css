@@ -22,3 +22,10 @@
 .bg-color-Form-Reg{
     background-color:#9e9e9e;
 }
+.inputDesignError{
+    border: 2px solid red ;
+    color: red;
+}
+.errorRedMsg{
+    color: red;
+}

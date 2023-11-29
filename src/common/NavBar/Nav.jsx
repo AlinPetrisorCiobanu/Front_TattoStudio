@@ -46,7 +46,7 @@ export const Navigation = () => {
       navbar.style.position = "fixed";
     } else {
       navbar.style.position = "static";
-      navbar.style.width = "100vw";
+      navbar.style.width = "100%";
     }
   });
 
