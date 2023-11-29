@@ -39,6 +39,7 @@ export const Register = () => {
     navigate("/");
   };
 
+  const [baseError, setBaseError] = useState("")
   const [userError, setUserError] = useState({
     nameError: "",
     lastNameError: "",
@@ -67,8 +68,8 @@ export const Register = () => {
     setUserError((prevState) => ({
       ...prevState,
       [e.target.name + "Error"]: error,
-    }))
-  }
+    }));
+  };
 
   const dateBBD = async () => {
     try {
@@ -88,7 +89,8 @@ export const Register = () => {
       const date = { email, password };
       loginHand(date);
     } catch (error) {
-      console.error(error);
+      setBaseError(error.response.data.message)
+      // console.error(error);
     }
   };
 
@@ -113,7 +115,9 @@ export const Register = () => {
             <Form
               type="text"
               name="name"
-              txt={`bg-color-Form-Reg ${userError.nameError !== '' ? 'inputDesignError' : ''}`}
+              txt={`bg-color-Form-Reg ${
+                userError.nameError !== "" ? "inputDesignError" : ""
+              }`}
               nameLabel="Nombre"
               nrCol="6"
               handlerInput={inputDate}
@@ -122,7 +126,9 @@ export const Register = () => {
             <Form
               type="text"
               name="lastName"
-              txt={`bg-color-Form-Reg ${userError.lastNameError !== '' ? 'inputDesignError' : ''}`}
+              txt={`bg-color-Form-Reg ${
+                userError.lastNameError !== "" ? "inputDesignError" : ""
+              }`}
               nameLabel="Appelidos"
               nrCol="6"
               handlerInput={inputDate}
@@ -131,7 +137,9 @@ export const Register = () => {
             <Form
               type="text"
               name="idUser"
-              txt={`bg-color-Form-Reg ${userError.idUserError !== '' ? 'inputDesignError' : ''}`}
+              txt={`bg-color-Form-Reg ${
+                userError.idUserError !== "" ? "inputDesignError" : ""
+              }`}
               nameLabel="DNI"
               nrCol="6"
               handlerInput={inputDate}
@@ -140,7 +148,9 @@ export const Register = () => {
             <Form
               type="text"
               name="tlf"
-              txt={`bg-color-Form-Reg ${userError.tlfError !== '' ? 'inputDesignError' : ''}`}
+              txt={`bg-color-Form-Reg ${
+                userError.tlfError !== "" ? "inputDesignError" : ""
+              }`}
               nameLabel="nr. Telefono"
               nrCol="6"
               handlerInput={inputDate}
@@ -150,7 +160,9 @@ export const Register = () => {
               <Form
                 type="text"
                 name="years"
-                txt={`bg-color-Form-Reg ${userError.yearsError !== '' ? 'inputDesignError' : ''}`}
+                txt={`bg-color-Form-Reg ${
+                  userError.yearsError !== "" ? "inputDesignError" : ""
+                }`}
                 nameLabel="Tu fecha de nacimiento (solo el año)"
                 nrCol="6"
                 handlerInput={inputDate}
@@ -161,7 +173,9 @@ export const Register = () => {
             <Form
               type="text"
               name="email"
-              txt={`bg-color-Form-Reg ${userError.emailError !== '' ? 'inputDesignError' : ''}`}
+              txt={`bg-color-Form-Reg ${
+                userError.emailError !== "" ? "inputDesignError" : ""
+              }`}
               nameLabel="Correo Electronico"
               nrCol="6"
               handlerInput={inputDate}
@@ -170,7 +184,9 @@ export const Register = () => {
             <Form
               type="text"
               name="password"
-              txt={`bg-color-Form-Reg ${userError.passwordError !== '' ? 'inputDesignError' : ''}`}
+              txt={`bg-color-Form-Reg ${
+                userError.passwordError !== "" ? "inputDesignError" : ""
+              }`}
               nameLabel="Contraseña"
               nrCol="6"
               handlerInput={inputDate}
@@ -183,6 +199,7 @@ export const Register = () => {
             <div className="errorRedMsg">{userError.yearsError}</div>
             <div className="errorRedMsg">{userError.passwordError}</div>
             <div className="errorRedMsg">{userError.emailError}</div>
+            <div className="errorRedMsg">{baseError}</div>
             <Col>
               <Button className="buttonFormReg" onClick={(e) => send(e)}>
                 Register

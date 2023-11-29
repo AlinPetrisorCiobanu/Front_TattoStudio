@@ -18,13 +18,15 @@ export const Navigation = () => {
 
   //con la ayuda de Redux traigo el token de la pagina de login
   const token = useSelector(userDate).credentials;
-  const [name, setName] = useState("user");
+  const [name, setName] = useState("user")
+  const [rol, setRol] = useState("user")
 
   //saco el nombre que tengo guardado en el token.
   const getTokenName = () => {
     if (token) {
       const decodedToken = jwtDecode(String(token));
       setName(decodedToken.name);
+      setRol(decodedToken.rol);
     }
   };
   
@@ -67,8 +69,12 @@ export const Navigation = () => {
             <Nav>
               <Nav.Link className="configTextNav" href="#features">Tatuadores</Nav.Link>
               <Nav.Link className="configTextNav" href="#pricing">Galeria</Nav.Link>
-              <NavDropdown className="configTextNav" title={name} id="collapsible-nav-dropdown">
-                <NavDropdown.Item className="configTextNav" href="/profile">Mi Perfil</NavDropdown.Item>
+              <NavDropdown className="configTextNav" title={rol==="admin"?("admin"):(name)} id="collapsible-nav-dropdown">
+                {rol==="admin"?(
+                  <NavDropdown.Item className="configTextNav" href="/profile">Perfiles</NavDropdown.Item>
+                ):(
+                  <NavDropdown.Item className="configTextNav" href="/profile">Mi Perfil</NavDropdown.Item>
+                )}
                 <NavDropdown.Divider />
                 <NavDropdown.Item className="configTextNav" href="/appointment">
                   Sessiones

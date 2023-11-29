@@ -20,45 +20,45 @@ export const Card = ({
       <div className="display-flex Card mt-3 mb-3">
         <Row className=" justify-content-center pt-1">
           <Col className="text-center pt-3" md="12">
-            <h2>
+            <h5>
               {name} {last_Name}
-            </h2>
+            </h5>
           </Col>
         </Row>
         <hr className="hrCardProfile" />
         <Row className=" justify-content-center pt-1">
           <Col className="text-center" md="12">
             <p>ID :</p>
-            <h2>{id}</h2>
+            <h6>{id}</h6>
           </Col>
         </Row>
         <hr className="hrCardProfile" />
         <Row className="">
           <Col className="text-center" md="7">
             <p>Dni :</p>
-            <h3>{idUser}</h3>
+            <p>{idUser}</p>
           </Col>
           <Col className="text-center" md="4">
             <p>Año de Nacimiento :</p>
-            <h3>{years}</h3>
+            <p>{years}</p>
           </Col>
         </Row>
         <hr className="hrCardProfile" />
         <Row className="">
           <Col className="text-center" md="7">
             <p>Email :</p>
-            <h3>{email}</h3>
+            <p>{email}</p>
           </Col>
           <Col className="text-center" md="4">
             <p>Nr. Telefono :</p>
-            <h3>{tlf}</h3>
+            <p>{tlf}</p>
           </Col>
         </Row>
         <hr className="hrCardProfile" />
         <Row className="">
           <Col className="text-center" md="12">
             <p>Rol :</p>
-            <h3>{rol}</h3>
+            <p>{rol}</p>
           </Col>
         </Row>
         <Row className="pb-3">

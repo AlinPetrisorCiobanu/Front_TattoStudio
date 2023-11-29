@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import { Card } from "../../common/Card/Card";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import { MyVerticallyCenteredModal } from "../../common/Modal/Modal";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -33,13 +34,17 @@ export const Profile = () => {
   const [modalShow, setModalShow] = useState(false);
 
   const modifyUser = () => {
-    console.log("mod");
+    setModalShow(true)
   };
   const deleteUser = () => {
     console.log("borr");
   };
   return (
     <>
+    <MyVerticallyCenteredModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)}
+    />
       <Container fluid className="">
         <Container className="d-flex justify-content-center containerFormRegister containerCardProfile">
           {profile.rol === "customer" || profile.rol === "artist" ? (
