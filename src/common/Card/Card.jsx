@@ -1,32 +1,15 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { useSelector } from "react-redux";
 import "./Card.css";
-import { userDate } from "../../pages/userSlice";
-import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 
 export const Card = ({
   user,
   handlerClickMod,
   handlerClickDel,
+  rol,
+  borradoLogico,
 }) => {
-  const [rol , setRol] = useState("")
-  const token = useSelector(userDate).credentials;
-  
-  const getTokenName = () => {
-    if (token) {
-      const decodedToken = jwtDecode(String(token));
-      setRol(decodedToken.rol);
-    }
-  };
-  
-    useEffect(() => {
-      getTokenName();
-    }, [token]);
-
-
   return (
     <>
       <div className="display-flex Card mt-3 mb-3">
@@ -84,7 +67,7 @@ export const Card = ({
             <Button onClick={() => handlerClickMod(user)}>Modificar Usuario</Button>
           </Col>
           <Col className="text-start" md="6">
-            <Button onClick={() => handlerClickDel(user)}>Borrar Usuario</Button>
+            <Button onClick={() => handlerClickDel(user)}> {borradoLogico===true ? "Reactivar Cuenta" : "Borrar Usuario"} </Button>
           </Col>
         </Row>
       </div>

@@ -39,14 +39,14 @@ export const getProfile = async (token) => {
 }
 
 //modificación datos del usuario registrado ,excepto si es admin
-export const modifyProfile = async (token) => {
+export const modifyProfile = async (token , date , ID) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   try {
-    const res = await axios.get(`${URL_USER}` , config);
+    const res = await axios.put(`${URL_USER}/${ID}` ,date , config );
     return res.data;
   } catch (error) {
     return "algo ha fallado" + error;
@@ -54,14 +54,29 @@ export const modifyProfile = async (token) => {
 }
 
 //borrar usuario registrado ,excepto si es admin
-export const deleteProfile = async (token) => {
+export const deleteProfile = async (token, ID) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   try {
-    const res = await axios.get(`${URL_USER}` , config);
+    const res = await axios.delete(`${URL_USER}/${ID}`, config);
+    return res.data;
+  } catch (error) {
+    return "algo ha fallado" + error;
+  }
+}
+
+//reactivar cuenta solo admin
+export const reactiveProfile = async (token, ID , date) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  }
+  try {
+    const res = await axios.patch(`${URL_USER}/${ID}`,date, config);
     return res.data;
   } catch (error) {
     return "algo ha fallado" + error;
