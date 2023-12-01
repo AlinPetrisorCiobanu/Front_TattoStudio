@@ -57,8 +57,8 @@ export const Login = () => {
 
   }
 
-  const loginHand = (date) => {
-    login(date)
+  const loginHand = (data) => {
+    login(data)
       .then((res) => {
         const originalToken = res.token;
         dispatch(userLogin({ credentials: originalToken }))

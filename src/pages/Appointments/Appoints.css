@@ -1,0 +1,25 @@
+.appointmentDesignPage{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: blanchedalmond;
+    color: blue;
+}
+.cardApp{
+    width: 10em;
+    height: 14em;
+    background-color: rgba(127, 255, 212, 0.471);
+    border: 0.2em solid black;
+    padding: 1em;
+    border-radius: 1em;
+}
+.designCreateNewAppoints{
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+.designCreateNewAppoints:hover{
+    cursor: pointer;
+}

@@ -39,7 +39,7 @@ export const Register = () => {
     navigate("/");
   };
 
-  const [baseError, setBaseError] = useState("")
+  const [baseError, setBaseError] = useState("");
   const [userError, setUserError] = useState({
     nameError: "",
     lastNameError: "",
@@ -71,27 +71,28 @@ export const Register = () => {
     }));
   };
 
-  const dateBBD = async () => {
-    try {
-      const dataToSend = {
-        name: `${registerDetails.name}`,
-        lastName: `${registerDetails.lastName}`,
-        idUser: `${registerDetails.idUser}`,
-        tlf: `${registerDetails.tlf}`,
-        birthday: `${registerDetails.years}`,
-        email: `${registerDetails.email}`,
-        password: `${registerDetails.password}`,
-      };
-      await register(dataToSend);
-      console.log(`${dataToSend.name} los datos se han enviado corectamente`);
-      const email = dataToSend.email;
-      const password = dataToSend.password;
-      const date = { email, password };
-      loginHand(date);
-    } catch (error) {
-      setBaseError(error.response.data.message)
-      // console.error(error);
-    }
+  const dateBBD = () => {
+    const dataToSend = {
+      name: `${registerDetails.name}`,
+      lastName: `${registerDetails.lastName}`,
+      idUser: `${registerDetails.idUser}`,
+      tlf: `${registerDetails.tlf}`,
+      birthday: `${registerDetails.years}`,
+      email: `${registerDetails.email}`,
+      password: `${registerDetails.password}`,
+    };
+    return register(dataToSend)
+      .then(() => {
+        console.log(`${dataToSend.name} los datos se han enviado corectamente`);
+        const email = dataToSend.email;
+        const password = dataToSend.password;
+        const date = { email, password };
+        loginHand(date);
+      })
+      .catch((error) => {
+        setBaseError(error.response.data.message);
+        // console.error(error);
+      });
   };
 
   const send = () => {
@@ -100,7 +101,6 @@ export const Register = () => {
   };
 
   const inputDate = (e) => {
-    console.log(e.target.value);
     setRegisterDetails((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,

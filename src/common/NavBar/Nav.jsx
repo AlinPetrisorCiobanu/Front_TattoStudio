@@ -37,9 +37,9 @@ export const Navigation = () => {
 
   //la función de logout
   const LogOut = () => {
-    dispatch(userLogout({ credentials: "" }));
-    navigate("/");
-  };
+    dispatch(userLogout({ credentials: "" }))
+    navigate("/")
+  }
 
   //he añadido la escucha de evento del scroll para que el navbar no se sobreponga al body.
   window.addEventListener("scroll", () => {

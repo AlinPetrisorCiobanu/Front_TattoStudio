@@ -4,11 +4,12 @@
   width: 20vw;
   padding: 1vw;
   height: auto;
-  background-color: rgba(2, 2, 57, 0.348);
-  border: 5px solid rgb(0, 0, 0);
-  color: bisque;
+  background-color: rgba(2, 2, 57, 0.781);
+  border: 5px solid rgba(0, 0, 0, 0.688);
+  color:rgba(240, 248, 255, 0.804);
   border-radius: 20px;
-  box-shadow: 15px 15px 8px rgba(0, 0, 255, 0.227);
+  box-shadow: 15px 15px 8px rgba(69, 69, 69, 0.503);
+  text-align: center;
 }
 .hrCardProfile {
   width: 60%;
