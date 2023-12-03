@@ -15,6 +15,25 @@ import { validate } from "../../servicios/useFul";
 // import { Input } from "../../common/Input/Input";
 
 export const Register = () => {
+  const [baseError, setBaseError] = useState("");
+  const [userError, setUserError] = useState({
+    nameError: "",
+    lastNameError: "",
+    idUserError: "",
+    tlfError: "",
+    yearsError: "",
+    emailError: "",
+    passwordError: "",
+  });
+  const [registerDetails, setRegisterDetails] = useState({
+    name: "",
+    lastName: "",
+    idUser: "",
+    tlf: "",
+    years: "",
+    email: "",
+    password: "",
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,49 +47,26 @@ export const Register = () => {
   useEffect(() => {
     tokenExist(token);
   }, [token]);
-
-  const loginHand = (date) => {
-    login(date)
-      .then((res) => {
-        const originalToken = res.token;
-        dispatch(userLogin({ credentials: originalToken }));
-      })
-      .catch((err) => console.log(err));
-    navigate("/");
+  
+  //aqui guardo los valores de input corespondiente al nombre asignado al input
+  const inputDate = (e) => {
+    setRegisterDetails((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
-
-  const [baseError, setBaseError] = useState("");
-  const [userError, setUserError] = useState({
-    nameError: "",
-    lastNameError: "",
-    idUserError: "",
-    tlfError: "",
-    yearsError: "",
-    emailError: "",
-    passwordError: "",
-  });
-
-  const [registerDetails, setRegisterDetails] = useState({
-    name: "",
-    lastName: "",
-    idUser: "",
-    tlf: "",
-    years: "",
-    email: "",
-    password: "",
-  });
-
+  
+  //chequeo de errores para los inputs
   const checkError = (e) => {
     let error = "";
-
     error = validate(e.target.name, e.target.value);
-
     setUserError((prevState) => ({
       ...prevState,
       [e.target.name + "Error"]: error,
     }));
   };
 
+  //mando los datos a la base de datos
   const dateBBD = () => {
     const dataToSend = {
       name: `${registerDetails.name}`,
@@ -91,20 +87,22 @@ export const Register = () => {
       })
       .catch((error) => {
         setBaseError(error.response.data.message);
-        // console.error(error);
       });
   };
-
   const send = () => {
     dateBBD();
     navigate("/");
   };
 
-  const inputDate = (e) => {
-    setRegisterDetails((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+  //si el registro ha ido bien hace login y guarda el token en redux.
+  const loginHand = (date) => {
+    login(date)
+      .then((res) => {
+        const originalToken = res.token;
+        dispatch(userLogin({ credentials: originalToken }));
+      })
+      .catch((err) => console.log(err));
+    navigate("/");
   };
 
   return (
@@ -123,6 +121,7 @@ export const Register = () => {
               handlerInput={inputDate}
               functionError={checkError}
             />
+
             <Form
               type="text"
               name="lastName"
@@ -134,6 +133,7 @@ export const Register = () => {
               handlerInput={inputDate}
               functionError={checkError}
             />
+
             <Form
               type="text"
               name="idUser"
@@ -145,6 +145,7 @@ export const Register = () => {
               handlerInput={inputDate}
               functionError={checkError}
             />
+
             <Form
               type="text"
               name="tlf"
@@ -156,6 +157,7 @@ export const Register = () => {
               handlerInput={inputDate}
               functionError={checkError}
             />
+
             <Row className="justify-content-center">
               <Form
                 type="text"
@@ -181,6 +183,7 @@ export const Register = () => {
               handlerInput={inputDate}
               functionError={checkError}
             />
+
             <Form
               type="text"
               name="password"
@@ -192,13 +195,21 @@ export const Register = () => {
               handlerInput={inputDate}
               functionError={checkError}
             />
+
             <div className="errorRedMsg">{userError.nameError}</div>
+
             <div className="errorRedMsg">{userError.lastNameError}</div>
+
             <div className="errorRedMsg">{userError.idUserError}</div>
+
             <div className="errorRedMsg">{userError.tlfError}</div>
+
             <div className="errorRedMsg">{userError.yearsError}</div>
+
             <div className="errorRedMsg">{userError.passwordError}</div>
+
             <div className="errorRedMsg">{userError.emailError}</div>
+
             <div className="errorRedMsg">{baseError}</div>
             <Col>
               <Button className="buttonFormReg" onClick={(e) => send(e)}>

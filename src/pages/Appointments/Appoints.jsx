@@ -13,23 +13,17 @@ import { ModalCommon } from "../../common/Modal/Modal";
 export const Appoints = () => {
   const originalToken = useSelector(userDate).credentials;
   const [appointments, setAppointments] = useState([]);
+  const [rol, setRol] = useState("")
+  const [ID, setID] = useState("")
+  const [modalShow, setModalShow] = useState(false)
   const [newAppointments, setNewAppointments] = useState({
     date: "",
     startTime: "",
     intervention: "",
     idArtist: "",
   })
-  const [rol, setRol] = useState("")
-  const [ID, setID] = useState("")
-  const [modalShow, setModalShow] = useState(false)
-
-  const profileBBD = (date) => {
-    getAppointment(date)
-      .then((res) => {
-          setAppointments(res)
-      })
-      .catch((err) => console.log(err))
-  };
+ 
+  //compruebo si tiene token , si no le mando a la pagina principal
   useEffect(() => {
     if (!originalToken) {
       navigate("./")
@@ -37,7 +31,8 @@ export const Appoints = () => {
     profileBBD(originalToken)
   }, [originalToken])
 
-  const getToken = () => {
+  //extraigo el rol del token y el ID
+  const getTokenRol = () => {
     if (originalToken) {
       const decodedToken = jwtDecode(String(originalToken));
       if(decodedToken.rol==="admin"){
@@ -47,9 +42,19 @@ export const Appoints = () => {
     }
   }
   useEffect(() => {
-    getToken()
+    getTokenRol()
   }, [originalToken])
 
+  //si tiene token le muestro sus citas, si es admin muestro todas
+  const profileBBD = (date) => {
+    getAppointment(date)
+      .then((res) => {
+          setAppointments(res)
+      })
+      .catch((err) => console.log(err))
+  };
+
+//guardo los valores de los inputs
   const inputDataApp = (e) => {
     setNewAppointments((prevState) => ({
       ...prevState,
@@ -57,6 +62,12 @@ export const Appoints = () => {
     }))
   }
 
+  //un boton principal para mostrar un modal con creación de las citas
+  const create = () =>{
+    setModalShow(true)
+  }
+
+  //metodo para mandar datos a la base de datos para guardar una cita
   const send = () => {
     const dataToSend = {
       date: `${newAppointments.date}`,
@@ -66,20 +77,20 @@ export const Appoints = () => {
     }
     createAppointment(originalToken , dataToSend)
       .then((res)=>{
-        console.log("se ha creado una cita")
+        console.log("se ha creado una cita"+ res)
       })
       .catch((err)=>{
         console.log(err)
       })
   }
 
-  const create = (res) =>{
-    setModalShow(true)
-  }
+  //modificación de citas , toma como referencía el id de la cita
   const modifyApp = (res) =>{
     const idApp=res._id
     console.log(idApp)
   }
+
+  //borrado logico citas , toma como referencía el id de la cita
   const delApp = (res) =>{
     const idApp=res._id
     console.log(idApp)

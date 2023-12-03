@@ -14,8 +14,6 @@ import "./Nav.css";
 export const Navigation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // dispatch(userLogout({ credentials: "" }));
-
   //con la ayuda de Redux traigo el token de la pagina de login
   const token = useSelector(userDate).credentials;
   const [name, setName] = useState("user")
@@ -29,7 +27,6 @@ export const Navigation = () => {
       setRol(decodedToken.rol);
     }
   };
-  
     useEffect(() => {
       getTokenName();
     }, [token]);
