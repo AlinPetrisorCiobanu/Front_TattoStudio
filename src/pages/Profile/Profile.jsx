@@ -13,6 +13,7 @@ import Container from "react-bootstrap/Container";
 import { Card } from "../../common/Card/Card";
 import { useNavigate } from "react-router-dom";
 import { ModalCommon } from "../../common/Modal/Modal";
+import { jwtDecode } from "jwt-decode";
 import "./Profile.css";
 
 export const Profile = () => {
@@ -25,7 +26,6 @@ export const Profile = () => {
   const [userToModifyDelete, setUserToModifyDelete] = useState({});
   const [referenceModifyOrDelete, setReferenceModifyOrDelete] = useState({});
   const [modifyDetails, setModifyDetails] = useState({
-    id: "",
     name: "",
     lastName: "",
     idUser: "",
@@ -36,6 +36,7 @@ export const Profile = () => {
     rol: "",
     borradoLogico: "",
   })
+  const [rol, setRol] = useState("")
 
   const profileBBD = (data) => {
     getProfile(data)
@@ -58,6 +59,17 @@ export const Profile = () => {
     }
   }, [originalToken])
 
+  const getTokenRol = () => {
+    if (originalToken) {
+      const decodedToken = jwtDecode(String(originalToken));
+      setRol(decodedToken.rol);
+    }
+  }
+  
+    useEffect(() => {
+      getTokenRol();
+    }, [originalToken]);
+
   const modifyUser = (user) => {
     if (user._id !== "") {
       const reference = "modify";
@@ -65,9 +77,9 @@ export const Profile = () => {
       setReferenceModifyOrDelete(reference);
       setModalShow(true);
     }
-  };
-
-  const dateBBD = (id) => {
+  }
+  
+  const send = (id) => {
     const dataToSend = {
       name: `${modifyDetails.name}`,
       lastName: `${modifyDetails.lastName}`,
@@ -96,11 +108,6 @@ export const Profile = () => {
         console.error(error);
       });
   };
-
-  const send = (id) => {
-    dateBBD(id);
-  };
-
   const deleteTo = (id) => {
     const dataToSend = {
       borradoLogico: `${
@@ -111,11 +118,18 @@ export const Profile = () => {
     //implementar que si es admin no lo saque fuera al borrar
 
     if (dataToSend.borradoLogico) {
-      console.log(profile.rol)
+      
       deleteProfile(originalToken, id)
         .then(() => {
-          setModalShow(false);
-          dispatch(userLogout({ credentials: "" }));
+          if(rol==="admin"){
+            setTimeout(()=>{
+              setModalShow(false);
+            },1000)
+          }
+          else{
+            setModalShow(false);
+            dispatch(userLogout({ credentials: "" }));
+          }
           console.log("cuenta borrada");
         })
 
@@ -147,7 +161,7 @@ export const Profile = () => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-  };
+  }
 
   const deleteUser = (user) => {
     if (user._id !== "") {
@@ -176,6 +190,7 @@ export const Profile = () => {
         onHide={() => setModalShow(false)}
       />
       <Container fluid className="">
+      <p className="text-center">hola</p>
         <Container className="d-flex justify-content-center containerFormRegister containerCardProfile">
           {profile.rol === "customer" || profile.rol === "artist" ? (
             <Row>
@@ -196,25 +211,28 @@ export const Profile = () => {
             </Row>
           ) : (
             profiles.map((users) => {
-              return (
-                <Row>
-                  <Col>
-                    <Card
-                      key={users._id}
-                      data={users}
-                      rol={
-                        profile.rol === "customer" || profile.rol === "artist"
-                          ? profile.rol
-                          : "admin"
-                      }
-                      reference={"profile"}
-                      borradoLogico={users.borradoLogico}
-                      handlerClickMod={modifyUser}
-                      handlerClickDel={deleteUser}
-                    />
-                  </Col>
-                </Row>
-              );
+              // if((users.rol==="artist")&&(users.borradoLogico===false)){
+
+                return (
+                  <Row>
+                    <Col>
+                      <Card
+                        key={users._id}
+                        data={users}
+                        rol={
+                          profile.rol === "customer" || profile.rol === "artist"
+                            ? profile.rol
+                            : "admin"
+                        }
+                        reference={"profile"}
+                        borradoLogico={users.borradoLogico}
+                        handlerClickMod={modifyUser}
+                        handlerClickDel={deleteUser}
+                      />
+                    </Col>
+                  </Row>
+                )
+              // }
             })
           )}
         </Container>

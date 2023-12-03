@@ -163,11 +163,35 @@ export const ModalCommon = ({
             )}
           </div>
         ) : reference === "appointment" ? (
-          <h6>Citas / Crear / Modificar / Borrar</h6>
-        ) : (
           <div>
-            Hola
+            <h6>fecha</h6>
+            <Input
+            type={"text"}
+            name={"date"}
+            handler={(e) => inputHandler(e)}
+          />
+          <h6>Hora</h6>
+            <Input
+            type={"text"}
+            name={"startTime"}
+            handler={(e) => inputHandler(e)}
+          />
+          <h6>Tatuaje o Piercing</h6>
+            <Input
+            type={"text"}
+            name={"intervention"}
+            handler={(e) => inputHandler(e)}
+          />
+          <h6>Tatuador</h6>
+            <Input
+            type={"text"}
+            name={"idArtist"}
+            handler={(e) => inputHandler(e)}
+          />
+          <Button onClick={()=>handlerClick()}>pedir cita</Button>
           </div>
+        ) : (
+          <h6>Hola</h6>
         )}
       </Modal.Body>
       <Modal.Footer>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { userDate } from "../userSlice";
 import { useSelector } from "react-redux";
-import { getAppointment } from "../../servicios/apiCalls";
+import { createAppointment, getAppointment } from "../../servicios/apiCalls";
 import { Card } from "../../common/Card/Card";
 import { jwtDecode } from "jwt-decode";
 import Row from "react-bootstrap/Row";
@@ -13,24 +13,29 @@ import { ModalCommon } from "../../common/Modal/Modal";
 export const Appoints = () => {
   const originalToken = useSelector(userDate).credentials;
   const [appointments, setAppointments] = useState([]);
-  const [newAppointments, setNewAppointments] = useState({});
-  const [rol, setRol] = useState("");
-  const [ID, setID] = useState("");
-  const [modalShow, setModalShow] = useState(false);
+  const [newAppointments, setNewAppointments] = useState({
+    date: "",
+    startTime: "",
+    intervention: "",
+    idArtist: "",
+  })
+  const [rol, setRol] = useState("")
+  const [ID, setID] = useState("")
+  const [modalShow, setModalShow] = useState(false)
 
   const profileBBD = (date) => {
     getAppointment(date)
       .then((res) => {
-          setAppointments(res);
+          setAppointments(res)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
   };
   useEffect(() => {
     if (!originalToken) {
-      navigate("./");
+      navigate("./")
     }
-    profileBBD(originalToken);
-  }, [originalToken]);
+    profileBBD(originalToken)
+  }, [originalToken])
 
   const getToken = () => {
     if (originalToken) {
@@ -38,22 +43,46 @@ export const Appoints = () => {
       if(decodedToken.rol==="admin"){
         setID(decodedToken.id)
       }
-      setRol(decodedToken.rol);
+      setRol(decodedToken.rol)
     }
-  };
-
+  }
   useEffect(() => {
-    getToken();
-  }, [originalToken]);
+    getToken()
+  }, [originalToken])
+
+  const inputDataApp = (e) => {
+    setNewAppointments((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const send = () => {
+    const dataToSend = {
+      date: `${newAppointments.date}`,
+      startTime: `${newAppointments.startTime}`,
+      intervention: `${newAppointments.intervention}`,
+      idArtist: `${newAppointments.idArtist}`,
+    }
+    createAppointment(originalToken , dataToSend)
+      .then((res)=>{
+        console.log("se ha creado una cita")
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }
 
   const create = (res) =>{
     setModalShow(true)
   }
   const modifyApp = (res) =>{
-    console.log(res._id)
+    const idApp=res._id
+    console.log(idApp)
   }
   const delApp = (res) =>{
-    console.log(res._id)
+    const idApp=res._id
+    console.log(idApp)
   }
   return (
     <>
@@ -64,10 +93,10 @@ export const Appoints = () => {
             ? rol
             : "admin"
         }
-        // inputHandler={inputDateModify}
-        // handlerClick={send}
+        inputHandler={inputDataApp}
+        handlerClick={send}
         // handlerDelete={deleteTo}
-        // handlerReactive={activeTo}
+        reference={"appointment"}
         onHide={() => setModalShow(false)}
       />
       <Container fluid className="">

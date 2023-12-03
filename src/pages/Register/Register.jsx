@@ -129,7 +129,7 @@ export const Register = () => {
               txt={`bg-color-Form-Reg ${
                 userError.lastNameError !== "" ? "inputDesignError" : ""
               }`}
-              nameLabel="Appelidos"
+              nameLabel="Apellidos"
               nrCol="6"
               handlerInput={inputDate}
               functionError={checkError}

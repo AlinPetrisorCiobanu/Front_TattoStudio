@@ -110,13 +110,13 @@ export const getAppointment = (token) => {
 }
 
 //borrar cita
-export const createAppointment = (token) => {
+export const createAppointment = (token , data) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  };
-return axios.get(`${URL_APP}` , config)
+  }
+return axios.post(`${URL_APP}/${data.idArtist}` ,data , config)
 .then((res)=>{
   return res.data;
 })
@@ -132,7 +132,7 @@ export const modifyAppointment = (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-   return axios.get(`${URL_APP}` , config)
+   return axios.post(`${URL_APP}` , config)
    .then((res)=>{
      return res.data;
    })
@@ -148,7 +148,7 @@ export const deleteAppointment = (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return axios.get(`${URL_APP}` , config)
+  return axios.delete(`${URL_APP}` , config)
   .then((res)=>{
     return res.data;
 

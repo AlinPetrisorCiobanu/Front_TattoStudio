@@ -2,6 +2,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./Card.css";
+import { useEffect, useState } from "react";
 
 export const Card = ({
   data,
