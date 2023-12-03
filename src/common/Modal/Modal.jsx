@@ -1,6 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Input } from "../Input/Input";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
 export const ModalCommon = ({
   show,
@@ -9,10 +11,13 @@ export const ModalCommon = ({
   reference,
   rol,
   inputHandler,
+  inputHandlerDate,
   handlerClick,
   handlerDelete,
   handlerReactive,
+  date,
 }) => {
+  
   const props = { show, onHide };
   return (
     <Modal
@@ -164,11 +169,11 @@ export const ModalCommon = ({
         ) : reference === "appointment" ? (
           <div>
             <h6>fecha</h6>
-            <Input
-            type={"text"}
+            <DatePicker 
+            selected={date}
             name={"date"}
-            handler={(e) => inputHandler(e)}
-          />
+            onChange={inputHandlerDate}
+            />
           <h6>Hora</h6>
             <Input
             type={"text"}

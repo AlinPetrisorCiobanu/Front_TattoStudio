@@ -7,8 +7,9 @@ import { jwtDecode } from "jwt-decode";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import "./Appoints.css";
 import { ModalCommon } from "../../common/Modal/Modal";
+import dayjs from 'dayjs'
+import "./Appoints.css";
 
 export const Appoints = () => {
   const originalToken = useSelector(userDate).credentials;
@@ -17,11 +18,11 @@ export const Appoints = () => {
   const [ID, setID] = useState("")
   const [modalShow, setModalShow] = useState(false)
   const [newAppointments, setNewAppointments] = useState({
-    date: "",
     startTime: "",
     intervention: "",
     idArtist: "",
   })
+  const [date , setDate] = useState(new Date())
  
   //compruebo si tiene token , si no le mando a la pagina principal
   useEffect(() => {
@@ -62,6 +63,17 @@ export const Appoints = () => {
     }))
   }
 
+  //creación de un use effect para el date picker
+  useEffect(()=>{
+    if(dayjs(date).isBefore(dayjs())){
+        console.log("Esta fecha es anterior y no puedes seleccionarla")
+
+    } else {
+        let cuanto = dayjs(date).diff(dayjs(), "days");
+        console.log(`Quedan ${cuanto} dias para tatuarte...`)
+    }
+  },[date])
+
   //un boton principal para mostrar un modal con creación de las citas
   const create = () =>{
     setModalShow(true)
@@ -70,13 +82,14 @@ export const Appoints = () => {
   //metodo para mandar datos a la base de datos para guardar una cita
   const send = () => {
     const dataToSend = {
-      date: `${newAppointments.date}`,
+      date: `${dayjs(date).format('YYYY MM DD')}`,
       startTime: `${newAppointments.startTime}`,
       intervention: `${newAppointments.intervention}`,
       idArtist: `${newAppointments.idArtist}`,
     }
-    createAppointment(originalToken , dataToSend)
+    createAppointment(originalToken , dataToSend )
       .then((res)=>{
+        console.log(dataToSend.date)
         console.log("se ha creado una cita"+ res)
       })
       .catch((err)=>{
@@ -105,10 +118,12 @@ export const Appoints = () => {
             : "admin"
         }
         inputHandler={inputDataApp}
+        inputHandlerDate={(date)=>setDate(date)}
         handlerClick={send}
         // handlerDelete={deleteTo}
         reference={"appointment"}
         onHide={() => setModalShow(false)}
+        date={date}
       />
       <Container fluid className="">
         <Container className="d-flex justify-content-center containerFormRegister containerCardProfile">
