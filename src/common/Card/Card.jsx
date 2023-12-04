@@ -88,7 +88,7 @@ export const Card = ({
           {rol === "admin" ? (
             <div>
               <div>{data._id}</div>
-              <div>borrado : {data.borradoLogico === true ? "Si" : "NO"}</div>
+              <div>borrado : {data.logicDelete === true ? "Si" : "NO"}</div>
               <hr className="hrCardProfile" />
               <div>
                 {data.customer.name} {data.customer.lastName}

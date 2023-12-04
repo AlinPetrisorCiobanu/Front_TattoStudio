@@ -16,6 +16,7 @@ export const Input = ({ txt, name, type, pat, handler ,handlerError , defaultVal
           value={defaultValue}
           className={txt}
           maxLength={50}
+          autocomplete="off"
         />
       </InputGroup>
     </>

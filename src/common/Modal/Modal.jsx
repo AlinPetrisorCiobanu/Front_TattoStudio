@@ -17,7 +17,6 @@ export const ModalCommon = ({
   handlerReactive,
   date,
 }) => {
-  
   const props = { show, onHide };
   return (
     <Modal

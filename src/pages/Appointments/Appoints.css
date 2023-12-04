@@ -1,3 +1,6 @@
+.ContainerAppointments{
+    overflow: scroll;
+}
 .appointmentDesignPage{
     width: 100%;
     height: auto;

@@ -1,4 +1,8 @@
-
+.ContainerProfile{
+    overflow: scroll;
+    margin-bottom: 5vh;
+    height: auto;
+}
 .containerCardProfile{
     flex-wrap: wrap;
 }

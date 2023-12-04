@@ -10,7 +10,7 @@ export const login = (data) => {
     return res.data;
   })
   .catch ((error)=>{
-    return "algo ha fallado" + error;
+    return error;
   }) 
   
 }
@@ -23,7 +23,7 @@ export const register = (data) => {
       return res.data;
     })
    .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -39,7 +39,7 @@ export const getProfile = (token) => {
      return res.data;
    })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -55,7 +55,7 @@ export const modifyProfile = (token , date , ID) => {
    return res.data;
  })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -71,7 +71,7 @@ return axios.delete(`${URL_USER}/${ID}`, config)
   return res.data;
 })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -88,7 +88,7 @@ export const reactiveProfile = (token, ID , date) => {
 
  })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -105,7 +105,7 @@ export const getAppointment = (token) => {
 
  })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -121,7 +121,7 @@ return axios.post(`${URL_APP}/${data.idArtist}` ,data , config)
   return res.data;
 })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
@@ -137,23 +137,23 @@ export const modifyAppointment = (token) => {
      return res.data;
    })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }
 
 //borrar cita
-export const deleteAppointment = (token) => {
+export const deleteAppointment = (token , idAppoint) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  return axios.delete(`${URL_APP}` , config)
+  return axios.delete(`${URL_APP}/${idAppoint}` , config)
   .then((res)=>{
     return res.data;
 
   })
   .catch ((error) => {
-    return "algo ha fallado" + error;
+    return error;
   })
 }

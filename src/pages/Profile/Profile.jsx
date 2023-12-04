@@ -195,7 +195,7 @@ export const Profile = () => {
         handlerReactive={activeTo}
         onHide={() => setModalShow(false)}
       />
-      <Container fluid className="">
+      <Container fluid className="ContainerProfile">
         <p className="text-center">hola</p>
         <Container className="d-flex justify-content-center containerFormRegister containerCardProfile">
           {profile.rol === "customer" || profile.rol === "artist" ? (
@@ -235,8 +235,7 @@ export const Profile = () => {
                     />
                   </Col>
                 </Row>
-              );
-              // }
+              )
             })
           )}
         </Container>

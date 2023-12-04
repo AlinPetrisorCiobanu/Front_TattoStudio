@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { userDate } from "../userSlice";
 import { useSelector } from "react-redux";
-import { createAppointment, getAppointment } from "../../servicios/apiCalls";
+import { createAppointment, deleteAppointment, getAppointment } from "../../servicios/apiCalls";
 import { Card } from "../../common/Card/Card";
 import { jwtDecode } from "jwt-decode";
 import Row from "react-bootstrap/Row";
@@ -23,7 +23,7 @@ export const Appoints = () => {
     idArtist: "",
   })
   const [date , setDate] = useState(new Date())
- 
+
   //compruebo si tiene token , si no le mando a la pagina principal
   useEffect(() => {
     if (!originalToken) {
@@ -106,8 +106,15 @@ export const Appoints = () => {
   //borrado logico citas , toma como referencía el id de la cita
   const delApp = (res) =>{
     const idApp=res._id
-    console.log(idApp)
+    deleteAppointment(originalToken , idApp)
+    .then((res)=>{
+      console.log("cita borrada" + res)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
   }
+
   return (
     <>
       <ModalCommon
@@ -125,14 +132,14 @@ export const Appoints = () => {
         onHide={() => setModalShow(false)}
         date={date}
       />
-      <Container fluid className="">
+      <Container fluid className="ContainerAppointments">
         <Container className="d-flex justify-content-center containerFormRegister containerCardProfile">
           <Row>
             <Col className="Card designCreateNewAppoints">
               <div onClick={() => create(ID)}><h1 className="h1delCard">+</h1></div>
             </Col>
           </Row>
-          {rol === "customer" || rol === "artist" ? (
+          {rol === "" ? (
             <div></div>
           ) : (
             appointments.map((appoint) => {

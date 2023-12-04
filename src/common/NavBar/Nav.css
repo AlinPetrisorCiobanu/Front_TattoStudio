@@ -1,8 +1,8 @@
 .navBarBootsTrap{ 
-    /* top: 0; */
-    /* padding: 5px 0; */
+    top: 0;
+    padding: 5px 0;
     background-color: #1e1e1e !important;
-    width: 100%;
+    width: 100vw;
 }
 .propiedadesNav{
     width: 90vw;
