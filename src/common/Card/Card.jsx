@@ -75,10 +75,7 @@ export const Card = ({
             </Col>
             <Col className="text-start" md="6">
               <Button onClick={() => handlerClickDel(data)}>
-                {" "}
-                {borradoLogico === true
-                  ? "Reactivar Cuenta"
-                  : "Borrar Usuario"}{" "}
+                {borradoLogico}
               </Button>
             </Col>
           </Row>

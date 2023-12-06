@@ -55,7 +55,11 @@ export const Login = () => {
 
   //comprueba en la base de datos si email y pass estan bien y guardo el token en redux
   const loginHand = (data) => {
-    login(data)
+    if(
+      loginDetails.email !== ""||
+      loginDetails.password !== ""
+    ){
+      login(data)
       .then((res) => {
         const originalToken = res.token;
         dispatch(userLogin({ credentials: originalToken }));
@@ -63,7 +67,11 @@ export const Login = () => {
           navigate("/");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); 
+    }else{
+      setUserError("campos vacios")
+    }
+   
   };
   return (
     <>

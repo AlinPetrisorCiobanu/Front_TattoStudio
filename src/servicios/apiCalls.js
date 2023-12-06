@@ -42,6 +42,20 @@ export const getProfile = (token) => {
     return error;
   })
 }
+export const getAllArtists = (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+   return axios.get(`${URL_USER}/artistsUser` , config)
+   .then((res)=>{
+     return res.data;
+   })
+  .catch ((error) => {
+    return error;
+  })
+}
 
 //modificación datos del usuario registrado ,excepto si es admin
 export const modifyProfile = (token , date , ID) => {

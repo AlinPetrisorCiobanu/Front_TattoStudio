@@ -12,7 +12,6 @@ import { userLogin } from "../../pages/userSlice";
 import Button from "react-bootstrap/Button";
 import "./Register.css";
 import { validate } from "../../servicios/useFul";
-// import { Input } from "../../common/Input/Input";
 
 export const Register = () => {
   const [baseError, setBaseError] = useState("");
@@ -78,8 +77,8 @@ export const Register = () => {
       password: `${registerDetails.password}`,
     };
     return register(dataToSend)
-      .then(() => {
-        console.log(`${dataToSend.name} los datos se han enviado corectamente`);
+      .then((res) => {
+        console.log(res);
         const email = dataToSend.email;
         const password = dataToSend.password;
         const date = { email, password };
@@ -90,8 +89,20 @@ export const Register = () => {
       });
   };
   const send = () => {
-    dateBBD();
+    if(registerDetails.name !== "" ||
+       registerDetails.lastName !== "" ||
+       registerDetails.idUser !== "" ||
+       registerDetails.tlf !== "" ||
+       registerDetails.years !== "" ||
+       registerDetails.email !== "" ||
+       registerDetails.password !== "" 
+    ){
+      dateBBD();
     navigate("/");
+    }else{
+      setUserError("campos vacios")
+    }
+    
   };
 
   //si el registro ha ido bien hace login y guarda el token en redux.

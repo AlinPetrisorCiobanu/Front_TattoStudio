@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalCommon } from "../../common/Modal/Modal";
 import { jwtDecode } from "jwt-decode";
 import "./Profile.css";
+import { validate } from "../../servicios/useFul";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -25,6 +26,16 @@ export const Profile = () => {
   const [modalShow, setModalShow] = useState(false);
   const [userToModifyDelete, setUserToModifyDelete] = useState({});
   const [referenceModifyOrDelete, setReferenceModifyOrDelete] = useState({});
+  const [modifyDetailsError, setModifyDetailsError] = useState({
+    nameError: "",
+    lastNameError: "",
+    idUserError: "",
+    tlfError: "",
+    yearsError: "",
+    emailError: "",
+    passwordError: "",
+    borradoLogicoError: "",
+  });
   const [modifyDetails, setModifyDetails] = useState({
     name: "",
     lastName: "",
@@ -88,8 +99,28 @@ export const Profile = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  //chequeo de errores para los inputs
+  const checkError = (e) => {
+    let error = "";
+    error = validate(e.target.name, e.target.value);
+    setModifyDetailsError((prevState) => ({
+      ...prevState,
+      [e.target.name + "Error"]: error,
+    }));
+  };
+
   //boton incorporado en el modal para modificar datos del profile
   const send = (id) => {
+    if (
+      modifyDetails.name !== "" ||
+      modifyDetails.lastName !== "" ||
+      modifyDetails.idUser !== "" ||
+      modifyDetails.years !== "" ||
+      modifyDetails.tlf !== "" ||
+      modifyDetails.email !== "" ||
+      modifyDetails.password !== ""
+    ) {
     const dataToSend = {
       name: `${modifyDetails.name}`,
       lastName: `${modifyDetails.lastName}`,
@@ -106,17 +137,23 @@ export const Profile = () => {
           : "customer"
       }`,
     };
-    //se manda a la base de datos (token , datos a modificar y el id de quien se van a modificar)
+    console.log(modifyDetailsError)
+
+   //se manda a la base de datos (token , datos a modificar y el id de quien se van a modificar)
     modifyProfile(originalToken, dataToSend, id)
       .then((res) => {
         console.log(
           `${dataToSend.name} ${res} los datos se han actualizado corectamente`
         );
+        setModalShow(false)
       })
       .catch((error) => {
-        // setBaseError(error.response.data.message)
         console.error(error);
-      });
+      }); 
+
+    } else {
+      setModifyDetailsError("campos vacios")
+    }
   };
 
   //borrado logico con modal
@@ -140,6 +177,7 @@ export const Profile = () => {
         .then(() => {
           if (rol === "admin") {
             setModalShow(false);
+            profileBBD(originalToken);
           } else {
             setModalShow(false);
             dispatch(userLogout({ credentials: "" }));
@@ -162,11 +200,11 @@ export const Profile = () => {
         modifyDetails.borradoLogico.toUpperCase() === "SI" ? false : true
       }`,
     };
-    console.log(dataToSend.borradoLogico);
     if (dataToSend.borradoLogico === "false") {
       reactiveProfile(originalToken, id)
         .then(() => {
           setModalShow(false);
+          profileBBD(originalToken);
           console.log("cuenta reactivada");
         })
         .catch((error) => {
@@ -194,6 +232,7 @@ export const Profile = () => {
         handlerDelete={deleteTo}
         handlerReactive={activeTo}
         onHide={() => setModalShow(false)}
+        functionError={checkError}
       />
       <Container fluid className="ContainerProfile">
         <p className="text-center">hola</p>
@@ -229,7 +268,7 @@ export const Profile = () => {
                           : "admin"
                       }
                       reference={"profile"}
-                      borradoLogico={users.borradoLogico}
+                      borradoLogico={users.borradoLogico===true?("Reactivar Cuenta"):("Borrar Usuario")}
                       handlerClickMod={modifyUser}
                       handlerClickDel={borradoLogico}
                     />
