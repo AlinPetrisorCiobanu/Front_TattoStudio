@@ -70,7 +70,7 @@ export const Card = ({
           <Row className="pb-3">
             <Col className="text-end" md="6">
               <Button onClick={() => handlerClickMod(data)}>
-                Modificar Usuario
+                Modificar
               </Button>
             </Col>
             <Col className="text-start" md="6">

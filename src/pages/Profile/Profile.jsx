@@ -115,44 +115,66 @@ export const Profile = () => {
     if (
       modifyDetails.name !== "" ||
       modifyDetails.lastName !== "" ||
-      modifyDetails.idUser !== "" ||
-      modifyDetails.years !== "" ||
-      modifyDetails.tlf !== "" ||
-      modifyDetails.email !== "" ||
       modifyDetails.password !== ""
     ) {
-    const dataToSend = {
-      name: `${modifyDetails.name}`,
-      lastName: `${modifyDetails.lastName}`,
-      password: `${modifyDetails.password}`,
-      idUser: `${modifyDetails.idUser}`,
-      tlf: `${modifyDetails.tlf}`,
-      birthday: `${modifyDetails.years}`,
-      email: `${modifyDetails.email}`,
-      rol: `${
-        modifyDetails.rol === "admin"
-          ? "admin"
-          : modifyDetails.rol === "artist"
-          ? "artist"
-          : "customer"
-      }`,
-    };
-    console.log(modifyDetailsError)
+      const dataToSendAdmin = {
+        name: `${modifyDetails.name}`,
+        lastName: `${modifyDetails.lastName}`,
+        password: `${modifyDetails.password}`,
+        idUser: `${modifyDetails.idUser}`,
+        tlf: `${modifyDetails.tlf}`,
+        birthday: `${modifyDetails.years}`,
+        email: `${modifyDetails.email}`,
+        rol: `${
+          modifyDetails.rol === "admin"
+            ? "admin"
+            : modifyDetails.rol === "artist"
+            ? "artist"
+            : "customer"
+        }`,
+      };
+      const dataToSend = {
+        name: `${modifyDetails.name}`,
+        lastName: `${modifyDetails.lastName}`,
+        password: `${modifyDetails.password}`,
+      };
 
-   //se manda a la base de datos (token , datos a modificar y el id de quien se van a modificar)
-    modifyProfile(originalToken, dataToSend, id)
-      .then((res) => {
-        console.log(
-          `${dataToSend.name} ${res} los datos se han actualizado corectamente`
-        );
-        setModalShow(false)
-      })
-      .catch((error) => {
-        console.error(error);
-      }); 
-
+      //se manda a la base de datos (token , datos a modificar y el id de quien se van a modificar)
+      if (rol === "admin") {
+        if (
+          modifyDetails.idUser !== "" ||
+          modifyDetails.years !== "" ||
+          modifyDetails.tlf !== "" ||
+          modifyDetails.email !== ""
+        ) {
+          console.log(modifyDetailsError);
+          modifyProfile(originalToken, dataToSendAdmin, id)
+            .then((res) => {
+              console.log(
+                `${dataToSendAdmin.name} ${res} los datos se han actualizado corectamente`
+              );
+              setModalShow(false);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      } else {
+        console.log(modifyDetailsError);
+        modifyProfile(originalToken, dataToSend)
+          .then((res) => {
+            console.log(
+              `${dataToSend.name} ${res} los datos se han actualizado corectamente`
+            );
+            setModalShow(false);
+            navigate("/home")
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     } else {
-      setModifyDetailsError("campos vacios")
+      setModifyDetailsError("campos vacios");
     }
   };
 
@@ -181,6 +203,7 @@ export const Profile = () => {
           } else {
             setModalShow(false);
             dispatch(userLogout({ credentials: "" }));
+            
           }
           console.log("cuenta borrada");
         })
@@ -248,9 +271,9 @@ export const Profile = () => {
                       ? profile.rol
                       : "admin"
                   }
+                  borradoLogico="borrar"
                   reference={"profile"}
                   handlerClickMod={modifyUser}
-                  handlerClickDel={borradoLogico}
                 />
               </Col>
             </Row>
@@ -268,13 +291,17 @@ export const Profile = () => {
                           : "admin"
                       }
                       reference={"profile"}
-                      borradoLogico={users.borradoLogico===true?("Reactivar Cuenta"):("Borrar Usuario")}
+                      borradoLogico={
+                        users.borradoLogico === true
+                          ? "Reactivar"
+                          : "Borrar"
+                      }
                       handlerClickMod={modifyUser}
                       handlerClickDel={borradoLogico}
                     />
                   </Col>
                 </Row>
-              )
+              );
             })
           )}
         </Container>
