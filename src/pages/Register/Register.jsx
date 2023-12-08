@@ -73,7 +73,7 @@ export const Register = () => {
       idUser: `${registerDetails.idUser}`,
       tlf: `${registerDetails.tlf}`,
       birthday: `${registerDetails.years}`,
-      email: `${registerDetails.email}`,
+      email: `${registerDetails.email.toLowerCase()}`,
       password: `${registerDetails.password}`,
     };
     return register(dataToSend)

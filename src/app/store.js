@@ -10,7 +10,7 @@ import thunk from "redux-thunk"
 
 const reducers = combineReducers({
     user: userSlice,
-    searchUser:searchUserSlice
+    search: searchUserSlice
 })
 
 const persistConfig = {

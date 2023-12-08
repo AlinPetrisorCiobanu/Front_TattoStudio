@@ -6,3 +6,18 @@
 .containerCardProfile{
     flex-wrap: wrap;
 }
+.inputSearchBar{
+    width: 15vw;
+    background-color: #1e1e1e;
+    margin-left: 1vw;
+    color: aliceblue;
+    border: 1px solid;
+    border-radius: 1vw;
+}
+.selectSearchBar{
+    width: 5vw;
+    text-align: center;
+    background-color: #1e1e1e;
+    color: aliceblue;
+    border: 0px;
+}
