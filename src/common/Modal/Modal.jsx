@@ -246,13 +246,13 @@ export const ModalCommon = ({
                     return (
                       <Col key={res._id}>
                         <input
-                          id="tattoo"
-                          type={"radio"}
-                          name={"idArtist"}
+                          id={res._id}
+                          type="radio"
+                          name="idArtist"
                           defaultValue={res._id}
                           onClick={(e) => selectorValue(e)}
                         />
-                        <label htmlFor="piercing">{res.name}</label>
+                        <label htmlFor={res._id}>{res.name}</label>
                       </Col>
                     );
                   })}

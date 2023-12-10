@@ -46,17 +46,6 @@ export const Navigation = () => {
     navigate("/");
   };
 
-  //he añadido la escucha de evento del scroll para que el navbar no se sobreponga al body.
-  window.addEventListener("scroll", () => {
-    let navbar = document.querySelector(".navBarBootsTrap");
-    if (window.scrollY > 10) {
-      navbar.style.position = "fixed";
-    } else {
-      navbar.style.position = "static";
-      navbar.style.width = "100%";
-    }
-  });
-
   //guardo los valores para search
   const dataSearch = (e) => {
     setDataSearchTo((prevState) => ({
@@ -120,12 +109,12 @@ export const Navigation = () => {
             </Nav>
           ) : (
             <Nav>
-              <Nav.Link className="configTextNav" href="#features">
+              {/*<Nav.Link className="configTextNav" href="#features">
                 Tatuadores
               </Nav.Link>
-              <Nav.Link className="configTextNav" href="#pricing">
+               <Nav.Link className="configTextNav" href="#pricing">
                 Galeria
-              </Nav.Link>
+              </Nav.Link> */}
               <NavDropdown
                 className="configTextNav"
                 title={rol === "admin" ? "admin" : name}

@@ -2,7 +2,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./Card.css";
-import { useEffect, useState } from "react";
 
 export const Card = ({
   data,
@@ -26,29 +25,29 @@ export const Card = ({
           <hr className="hrCardProfile" />
           <Row className=" justify-content-center pt-1">
             <Col className="text-center" md="12">
-              <p>ID :</p>
+              <p>ID</p>
               <h6>{data._id}</h6>
             </Col>
           </Row>
           <hr className="hrCardProfile" />
           <Row className="">
             <Col className="text-center" md="7">
-              <p>Dni :</p>
+              <p>Dni</p>
               <p>{data.idUser}</p>
             </Col>
             <Col className="text-center" md="4">
-              <p>Año de Nacimiento :</p>
+              <p>Año de Nacimiento</p>
               <p>{data.birthday}</p>
             </Col>
           </Row>
           <hr className="hrCardProfile" />
           <Row className="">
             <Col className="text-center" md="7">
-              <p>Email :</p>
+              <p>Email</p>
               <p>{data.email}</p>
             </Col>
             <Col className="text-center" md="4">
-              <p>Nr. Telefono :</p>
+              <p>Nr. Telefono</p>
               <p>{data.tlf}</p>
             </Col>
           </Row>
@@ -60,7 +59,7 @@ export const Card = ({
                 <p>{data.rol}</p>
               </Col>
               <Col className="text-center" md="6">
-                <p>Borrado :</p>
+                <p>Borrado</p>
                 <p>{data.borradoLogico === true ? "Si" : "NO"}</p>
               </Col>
             </Row>
@@ -113,6 +112,7 @@ export const Card = ({
                   <Button onClick={() => handlerClickMod(data)}>
                     Modificar
                   </Button>
+                  
                 </Col>
                 <Col className="text-start" md="6">
                   <Button onClick={() => handlerClickDel(data)}>Borrar</Button>

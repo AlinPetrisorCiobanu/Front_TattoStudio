@@ -51,8 +51,7 @@ export const Profile = () => {
     borradoLogico: "",
   });
   const [rol, setRol] = useState("");
-  const dataSearch = useSelector(searchData).data
- 
+  const dataSearch = useSelector(searchData).data;
 
   //si no tienes token te manda a la pagina principal
   //si tienes te muestra tu perfil
@@ -64,9 +63,9 @@ export const Profile = () => {
     }
   }, [originalToken]);
 
-  useEffect(()=>{
+  useEffect(() => {
     profileBBD(originalToken);
-  }, [dataSearch])
+  }, [dataSearch]);
 
   //extraigo el rol del token
   const getTokenRol = () => {
@@ -83,32 +82,35 @@ export const Profile = () => {
   const profileBBD = (data) => {
     getProfile(data)
       .then((res) => {
-        const filteredProfiles = res.filter(profile => {
-          if (dataSearch.rolSearch !== 'all' && profile.rol !== dataSearch.rolSearch) {
-            return ""
-          }
-        
-          if (dataSearch.deletedSearch !== 'all') {
-            const borrado = dataSearch.deletedSearch === 'SI';
-            if (profile.borradoLogico !== borrado) {
-              return ""
+        if(res.rol==="customer"){
+          setProfile(res);
+        }else{
+          const filteredProfiles = res.filter((profile) => {
+            if (
+              dataSearch.rolSearch !== "all" &&
+              profile.rol !== dataSearch.rolSearch
+            ) {
+              return "";
             }
-          }
-        
-          if (dataSearch.emailSearch !== '') {
-            const emailMatches = profile.email.toLowerCase().includes(dataSearch.emailSearch.toLowerCase());
-            if (!emailMatches) {
-              return ""
+            if (dataSearch.deletedSearch !== "all") {
+              const borrado = dataSearch.deletedSearch === "SI";
+              if (profile.borradoLogico !== borrado) {
+                return "";
+              }
             }
-          }
-        
-          return true;
-        });
-        
-        setProfilesAdmin(filteredProfiles);
-          
-        
-      })
+            if (dataSearch.emailSearch !== "") {
+              const emailMatches = profile.email
+                .toLowerCase()
+                .includes(dataSearch.emailSearch.toLowerCase());
+              if (!emailMatches) {
+                return "";
+              }
+            }
+            return true;
+          });
+          setProfilesAdmin(filteredProfiles);
+        }
+        })
       .catch((err) => console.log(err));
   };
 
@@ -283,7 +285,6 @@ export const Profile = () => {
       setModalShow(false);
     }
   };
-
   return (
     <>
       <ModalCommon
@@ -323,10 +324,10 @@ export const Profile = () => {
               </Col>
             </Row>
           ) : (
-            profiles.map((users) => {
-              return (
-                <Row>
-                  <Col>
+            <Row className="d-flex justify-content-center">
+              {profiles.map((users) => {
+                return (
+                  <Col xs={12} lg={4} className="d-flex justify-content-center optionsCardsProfile">
                     <Card
                       key={users._id}
                       data={users}
@@ -343,9 +344,9 @@ export const Profile = () => {
                       handlerClickDel={borradoLogico}
                     />
                   </Col>
-                </Row>
-              );
-            })
+                );
+              })}
+            </Row>
           )}
         </Container>
       </Container>

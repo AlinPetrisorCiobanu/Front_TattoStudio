@@ -194,7 +194,7 @@ export const Appoints = () => {
             appointments.map((appoint) => {
               return (
                 <Row>
-                  <Col>
+                  <Col className="optionCardsAppoints">
                     <Card
                       data={appoint}
                       reference={"appoints"}

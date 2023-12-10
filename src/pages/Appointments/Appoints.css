@@ -26,3 +26,6 @@
 .designCreateNewAppoints:hover{
     cursor: pointer;
 }
+.optionCardsAppoints{
+    margin-left: 20px;
+}

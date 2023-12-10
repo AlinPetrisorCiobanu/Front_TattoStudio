@@ -2,3 +2,15 @@
     text-align: center;
     color: burlywood;
 }
+.principalHome{
+    display: flex;
+    justify-content: center;
+    width: 100vw !important;
+    height: auto;
+    overflow: hidden;
+    color: burlywood;
+}
+.optionIMGHome{
+    min-width: 300px;
+    width: 45vw;
+}

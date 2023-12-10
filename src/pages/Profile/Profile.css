@@ -2,6 +2,7 @@
     overflow: scroll;
     margin-bottom: 5vh;
     height: auto;
+    min-width: 400px ;
 }
 .containerCardProfile{
     flex-wrap: wrap;
@@ -20,4 +21,7 @@
     background-color: #1e1e1e;
     color: aliceblue;
     border: 0px;
+}
+.optionsCardsProfile{
+    min-width: 400px;
 }

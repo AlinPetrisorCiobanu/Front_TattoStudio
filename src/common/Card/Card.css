@@ -1,15 +1,18 @@
 .Card {
   margin-left: 1vw;
   margin-right: 1vw;
-  width: 20vw;
+  width: 100%;
   padding: 1vw;
   height: auto;
-  background-color: rgba(2, 2, 57, 0.781);
+  background-color: #07070763;
+  filter: drop-shadow(5px 5px 4px #ffffff32);
+  /*box-shadow: 60px 80px 40px #ffffff32;*/
   border: 5px solid rgba(0, 0, 0, 0.688);
-  color:rgba(240, 248, 255, 0.804);
+    color: #ffc001;
   border-radius: 20px;
-  box-shadow: 15px 15px 8px rgba(69, 69, 69, 0.503);
   text-align: center;
+  font-family:'Times New Roman', Times, serif;
+  font-size: 1.4em;
 }
 .hrCardProfile {
   width: 60%;
