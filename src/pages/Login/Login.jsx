@@ -76,7 +76,7 @@ export const Login = () => {
     <>
       <Container fluid>
         <Container className="containerFormRegister text-center">
-          <Row className="containerFormLogin anchoRowFormRegister">
+          <Row className="containerFormLogin anchoRowFromLogin">
             <Form
               type="text"
               name="email"

@@ -1,6 +1,6 @@
 .containerFormRegister{
     width: 96vw;
-    height: 90vh;
+    min-height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
 .anchoRowFormRegister{
     width: 70vw;
     max-width: 1000px;
-    height: 65vh;
+    min-height: 65vh;
     border: 5px solid rgb(18, 3, 3);
     border-radius: 25px ;
     padding: 2.5vw;
